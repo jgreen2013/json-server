@@ -1,4 +1,5 @@
 var express = require('express');
+var fs = require('fs');
 var app = express();
 
 app.get('/',function(req,res){
@@ -17,6 +18,11 @@ app.get('/json/:qty',function(req,res,next){
   output = output.substring(0,output.length-1);
   output += "]";
   res.send(output);
+  fs.writeFile("file.json",output,function(err){
+    if(err){
+      return console.log(err);
+    }
+  });
   next();
 });
 
